@@ -1,22 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-TMM6DJZJ');</script>
-<!-- End Google Tag Manager -->
-  <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "wa4w3cgai5");
-</script>
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
   <!-- SEO Primary -->
@@ -48,7 +34,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta name="geo.position" content="-25.2969;-54.0944">
   <meta name="ICBM" content="-25.2969, -54.0944">
 
-  <!-- Schema.org -->
+  <!-- Schema.org: Organization + WebSite + LocalBusiness -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -79,7 +65,52 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         "name": "Voz de Medianeira",
         "description": "Plataforma de participação cidadã em Medianeira – PR",
         "publisher": { "@id": "https://www.vozdmedianeira.com.br/#organization" },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://www.vozdmedianeira.com.br/?s={search_term_string}",
+          "query-input": "required name=search_term_string"
+        },
         "inLanguage": "pt-BR"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Início", "item": "https://www.vozdmedianeira.com.br/" }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- FAQ Schema para rich snippets -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "O que é a Voz de Medianeira?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "É uma iniciativa cidadã independente que reúne opiniões dos moradores de Medianeira, PR, sobre as principais áreas públicas da cidade, como saúde, educação, obras, agricultura e mais."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Como participar da pesquisa cidadã de Medianeira?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Basta acessar nosso formulário, selecionar as áreas de interesse, responder as perguntas e enviar. O processo leva menos de 2 minutos e é completamente gratuito e anônimo."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "A iniciativa tem vínculo com partidos políticos?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Não. A Voz de Medianeira é uma iniciativa cidadã totalmente independente, sem vínculos com partidos políticos, candidaturas ou órgãos governamentais."
+        }
       }
     ]
   }
@@ -93,12 +124,28 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <link rel="stylesheet" href="assets/style.css">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 </head>
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "wa4w3cgai5");
+</script>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-56TC6TE1XT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-56TC6TE1XT');
+</script>
 <body>
 
-  <!-- Skip to content -->
+  <!-- Skip to content (acessibilidade) -->
   <a href="#conteudo-principal" class="skip-link">Pular para o conteúdo</a>
 
-  <!-- HEADER -->
+  <!-- HEADER / NAV -->
   <header role="banner">
     <nav role="navigation" aria-label="Navegação principal">
       <div class="nav-inner">
@@ -150,131 +197,181 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <a href="sobre.html" class="btn-ghost">Saiba mais →</a>
         </div>
         <div class="hero-stats" role="list" aria-label="Dados da iniciativa">
-          <div class="stat" role="listitem"><strong>12</strong><span>Áreas públicas mapeadas</span></div>
+          <div class="stat" role="listitem">
+            <strong>11</strong>
+            <span>Áreas públicas mapeadas</span>
+          </div>
           <div class="stat-div" aria-hidden="true"></div>
-          <div class="stat" role="listitem"><strong>2 min</strong><span>Para participar</span></div>
+          <div class="stat" role="listitem">
+            <strong>2 min</strong>
+            <span>Para participar</span>
+          </div>
           <div class="stat-div" aria-hidden="true"></div>
-          <div class="stat" role="listitem"><strong>100%</strong><span>Independente e anônimo</span></div>
+          <div class="stat" role="listitem">
+            <strong>100%</strong>
+            <span>Independente e anônimo</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- FORMULÁRIO PRINCIPAL (PÁGINA DE PARTICIPAÇÃO) -->
-    <section class="section-form" id="participar" aria-labelledby="form-titulo">
+    <!-- O QUE É -->
+    <section class="section-about" aria-labelledby="about-titulo">
+      <div class="container two-col">
+        <div class="col-text">
+          <span class="eyebrow">Sobre a iniciativa</span>
+          <h2 id="about-titulo">O que é a Voz de Medianeira?</h2>
+          <p>
+            A Voz de Medianeira é uma iniciativa cidadã do ex-vereador Ivan Cadeirante, criada para fazer aquilo que o poder público muitas vezes ignora: ouvir de verdade a população.
+
+Aqui, a opinião do cidadão não é descartada — ela vira dado, vira cobrança, vira ação.
+
+Com experiência como vereador, a iniciativa atua ajudando na construção de projetos, requerimentos, indicações e no encaminhamento de reclamações e protocolos dentro do município.
+          </p>
+          <p>
+            Não é governo. Não é partido.
+É um cidadão usando sua experiência para dar voz a quem nunca foi ouvido.
+
+Porque cidade boa não é a que fala…
+é a que escuta.
+          </p>
+          <a href="sobre.html" class="link-more">Leia mais sobre o projeto →</a>
+        </div>
+        <div class="col-visual" aria-hidden="true">
+          <div class="visual-card vc1">
+            <div class="vc-icon">🏙️</div>
+            <p>Medianeira merece uma cidade que escuta</p>
+          </div>
+          <div class="visual-card vc2">
+            <div class="vc-icon">📊</div>
+            <p>Dados reais gerados pelos próprios cidadãos</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ÁREAS em destaque -->
+    <section class="section-areas" aria-labelledby="areas-titulo">
       <div class="container">
-        <span class="eyebrow center">Sua opinião importa</span>
-        <h2 id="form-titulo" class="center">Participe da pesquisa</h2>
-        <p class="section-sub center">Preencha os campos abaixo. Seus dados são anônimos e protegidos pela LGPD.</p>
+        <span class="eyebrow center">11 áreas públicas</span>
+        <h2 id="areas-titulo" class="center">O que a pesquisa abrange</h2>
+        <p class="section-sub center">Cada área representa um aspecto fundamental da vida pública em Medianeira</p>
+        <ul class="areas-grid" role="list">
+          <li class="area-item"><a href="areas.html#educacao"><span class="ai-icon" aria-hidden="true">🎓</span><span>Educação e Cultura</span></a></li>
+          <li class="area-item"><a href="areas.html#assistencia"><span class="ai-icon" aria-hidden="true">🤝</span><span>Assistência Social</span></a></li>
+          <li class="area-item"><a href="areas.html#planejamento"><span class="ai-icon" aria-hidden="true">🏙️</span><span>Secretaria de Planejamento</span></a></li>
+          <li class="area-item"><a href="areas.html#administracao"><span class="ai-icon" aria-hidden="true">🏛️</span><span>Administração Pública</span></a></li>
+          <li class="area-item"><a href="areas.html#financas"><span class="ai-icon" aria-hidden="true">💰</span><span>Finanças Municipais</span></a></li>
+          <li class="area-item"><a href="areas.html#agricultura"><span class="ai-icon" aria-hidden="true">🌱</span><span>Agricultura Sustentável</span></a></li>
+          <li class="area-item"><a href="areas.html#esportes"><span class="ai-icon" aria-hidden="true">⚽</span><span>Esportes e Lazer</span></a></li>
+          <li class="area-item"><a href="areas.html#obras"><span class="ai-icon" aria-hidden="true">🔧</span><span>Obras e Infraestrutura</span></a></li>
+          <li class="area-item"><a href="areas.html#saude"><span class="ai-icon" aria-hidden="true">🏥</span><span>Saúde</span></a></li>
+          <li class="area-item"><a href="areas.html#controladoria"><span class="ai-icon" aria-hidden="true">🔍</span><span>Controladoria e Transparência</span></a></li>
+          <li class="area-item"><a href="areas.html#ouvidoria"><span class="ai-icon" aria-hidden="true">📣</span><span>Ouvidoria Municipal</span></a></li>
+          <li class="area-item ai-destaque"><a href="areas.html#economico"><span class="ai-icon" aria-hidden="true">📈</span><span>Desenvolvimento Econômico</span></a></li>
+        </ul>
+        <div class="center" style="margin-top:40px">
+          <a href="areas.html" class="btn-primary">Ver todas as áreas</a>
+        </div>
+      </div>
+    </section>
 
-        <form id="formParticipacao" class="form-participacao" onsubmit="enviarParticipacao(event)">
-          <!-- Nome (opcional) -->
-          <div class="form-group">
-            <label for="p-nome">Nome completo <span>(opcional)</span></label>
-            <input type="text" id="p-nome" name="entry.573861691" placeholder="Como você gostaria de ser chamado?">
-          </div>
-
-          <!-- E-mail (obrigatório para receber resultados) -->
-          <div class="form-group">
-            <label for="p-email">E-mail <span class="required">*</span></label>
-            <input type="email" id="p-email" name="entry.1437867021" required placeholder="seuemail@exemplo.com">
-            <small>Usaremos apenas para enviar os resultados da pesquisa.</small>
-          </div>
-
-          <!-- Bairro -->
-          <div class="form-group">
-            <label for="p-bairro">Bairro ou comunidade</label>
-            <input type="text" id="p-bairro" name="entry.1890320292" placeholder="Ex: Centro, Jardim América, Vila Nova...">
-          </div>
-
-          <!-- Faixa etária -->
-          <div class="form-group">
-            <label for="p-idade">Faixa etária</label>
-            <select id="p-idade" name="entry.1668619384">
-              <option value="">Selecione</option>
-              <option value="Até 17 anos">Até 17 anos</option>
-              <option value="18 a 29 anos">18 a 29 anos</option>
-              <option value="30 a 44 anos">30 a 44 anos</option>
-              <option value="45 a 59 anos">45 a 59 anos</option>
-              <option value="60 anos ou mais">60 anos ou mais</option>
-            </select>
-          </div>
-
-          <!-- Áreas prioritárias (top 3) -->
-          <div class="form-group">
-            <label>Quais são as 3 áreas MAIS URGENTES para você? <span class="required">*</span></label>
-            <div class="areas-check-group" id="areasPrioritarias">
-              <label class="area-check"><input type="checkbox" value="Educação e cultura"> Educação e cultura</label>
-              <label class="area-check"><input type="checkbox" value="Assistência social"> Assistência social</label>
-              <label class="area-check"><input type="checkbox" value="Secretaria de planejamento"> Secretaria de planejamento</label>
-              <label class="area-check"><input type="checkbox" value="Administração e planejamento"> Administração e planejamento</label>
-              <label class="area-check"><input type="checkbox" value="Finanças"> Finanças</label>
-              <label class="area-check"><input type="checkbox" value="Agricultura sustentável e abastecimento"> Agricultura sustentável</label>
-              <label class="area-check"><input type="checkbox" value="Esportes"> Esportes</label>
-              <label class="area-check"><input type="checkbox" value="Obras"> Obras</label>
-              <label class="area-check"><input type="checkbox" value="Saúde"> Saúde</label>
-              <label class="area-check"><input type="checkbox" value="Controladoria"> Controladoria</label>
-              <label class="area-check"><input type="checkbox" value="Ouvidoria municipal"> Ouvidoria municipal</label>
-              <label class="area-check"><input type="checkbox" value="Desenvolvimento econômico"> Desenvolvimento econômico</label>
+    <!-- COMO FUNCIONA -->
+    <section class="section-steps" aria-labelledby="steps-titulo">
+      <div class="container">
+        <span class="eyebrow center">Processo simples</span>
+        <h2 id="steps-titulo" class="center">Como participar</h2>
+        <ol class="steps-list" role="list">
+          <li class="step-item">
+            <div class="step-num" aria-hidden="true">01</div>
+            <div class="step-body">
+              <h3>Acesse o formulário</h3>
+              <p>Clique em "Participar" — é gratuito, anônimo e leva menos de 2 minutos.</p>
             </div>
-            <small id="areasCounter" style="color:#666;">Selecione até 3 áreas</small>
-            <input type="hidden" id="p-areas" name="entry.659213285">
-          </div>
+          </li>
+          <li class="step-item">
+            <div class="step-num" aria-hidden="true">02</div>
+            <div class="step-body">
+              <h3>Escolha as áreas</h3>
+              <p>Selecione quais áreas públicas são mais importantes para você e sua família.</p>
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-num" aria-hidden="true">03</div>
+            <div class="step-body">
+              <h3>Compartilhe sua opinião</h3>
+              <p>Responda livremente sobre os problemas e melhorias que você gostaria de ver.</p>
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-num" aria-hidden="true">04</div>
+            <div class="step-body">
+              <h3>Acompanhe os resultados</h3>
+              <p>Deixe seu email e receba os dados da pesquisa quando publicarmos os resultados.</p>
+            </div>
+          </li>
+        </ol>
+        <div class="center" style="margin-top:48px">
+          <a href="participar.html" class="btn-primary btn-lg">Quero participar agora</a>
+        </div>
+      </div>
+    </section>
 
-          <!-- Área menos prioritária -->
-          <div class="form-group">
-            <label for="p-menosPrioritaria">Qual área você considera MENOS prioritária?</label>
-            <select id="p-menosPrioritaria" name="entry.1572797503">
-              <option value="">Selecione uma opção</option>
-              <option>Educação e cultura</option>
-              <option>Assistência social</option>
-              <option>Secretaria de planejamento</option>
-              <option>Administração e planejamento</option>
-              <option>Finanças</option>
-              <option>Agricultura sustentável e abastecimento</option>
-              <option>Esportes</option>
-              <option>Obras</option>
-              <option>Saúde</option>
-              <option>Controladoria</option>
-              <option>Ouvidoria municipal</option>
-              <option>Desenvolvimento econômico</option>
-            </select>
+    <!-- FAQ -->
+    <section class="section-faq" aria-labelledby="faq-titulo">
+      <div class="container faq-inner">
+        <span class="eyebrow">Dúvidas frequentes</span>
+        <h2 id="faq-titulo">Perguntas frequentes</h2>
+        <dl class="faq-list">
+          <div class="faq-item">
+            <dt>
+              <button aria-expanded="false" aria-controls="faq1-ans" id="faq1-btn">
+                O que é a Voz de Medianeira?
+                <span aria-hidden="true" class="faq-arrow">▾</span>
+              </button>
+            </dt>
+            <dd id="faq1-ans" hidden>
+              É uma iniciativa cidadã independente que reúne opiniões dos moradores de Medianeira–PR
+              sobre as principais áreas públicas da cidade. Os dados são públicos e gerados pela própria comunidade.
+            </dd>
           </div>
-
-          <!-- Problema principal -->
-          <div class="form-group">
-            <label for="p-problema">Qual o maior problema que você vê nessa área? <span class="required">*</span></label>
-            <textarea id="p-problema" name="entry.1206017577" rows="3" required placeholder="Descreva o problema mais urgente que você observa..."></textarea>
+          <div class="faq-item">
+            <dt>
+              <button aria-expanded="false" aria-controls="faq2-ans" id="faq2-btn">
+                A iniciativa tem vínculo político?
+                <span aria-hidden="true" class="faq-arrow">▾</span>
+              </button>
+            </dt>
+            <dd id="faq2-ans" hidden>
+              Não. Somos totalmente independentes — sem vínculos com partidos, candidaturas ou órgãos
+              governamentais. Nenhum patrocinador político financia esta iniciativa.
+            </dd>
           </div>
-
-          <!-- Sugestão de melhoria -->
-          <div class="form-group">
-            <label for="p-melhoria">Que melhoria você sugere?</label>
-            <textarea id="p-melhoria" name="entry.861152238" rows="3" placeholder="Compartilhe sua ideia para resolver o problema..."></textarea>
+          <div class="faq-item">
+            <dt>
+              <button aria-expanded="false" aria-controls="faq3-ans" id="faq3-btn">
+                Meus dados ficam seguros?
+                <span aria-hidden="true" class="faq-arrow">▾</span>
+              </button>
+            </dt>
+            <dd id="faq3-ans" hidden>
+              Sim. O nome é opcional e o email só é utilizado para envio dos resultados. Nunca
+              vendemos, compartilhamos ou usamos seus dados para fins comerciais. Seguimos a LGPD.
+            </dd>
           </div>
-
-          <!-- Participação em audiências -->
-          <div class="form-group">
-            <label for="p-audiencia">Você gostaria de participar de audiências públicas ou conselhos municipais?</label>
-            <select id="p-audiencia" name="entry.1234567890">
-              <option value="">Selecione</option>
-              <option value="Sim, qualquer área">Sim, qualquer área</option>
-              <option value="Sim, tenho interesse específico">Sim, tenho interesse específico</option>
-              <option value="Não tenho interesse no momento">Não tenho interesse no momento</option>
-              <option value="Talvez, me enviem informações">Talvez, me enviem informações</option>
-            </select>
+          <div class="faq-item">
+            <dt>
+              <button aria-expanded="false" aria-controls="faq4-ans" id="faq4-btn">
+                O que acontece com os resultados?
+                <span aria-hidden="true" class="faq-arrow">▾</span>
+              </button>
+            </dt>
+            <dd id="faq4-ans" hidden>
+              Os dados serão organizados, publicados neste site e compartilhados com a comunidade
+              de Medianeira para fomentar debates públicos, transparência e cidadania ativa.
+            </dd>
           </div>
-
-          <!-- LGPD Consentimento -->
-          <div class="form-group checkbox-group">
-            <label class="checkbox-label">
-              <input type="checkbox" id="p-lgpd" name="entry.853641205" value="Autorizo" required>
-              <span>Autorizo o uso das minhas respostas para planejamento de políticas públicas, garantido o anonimato em relatórios públicos. <span class="required">*</span></span>
-            </label>
-          </div>
-
-          <button type="submit" class="btn-primary btn-lg">Enviar minha participação</button>
-          <div id="formStatus" class="form-status" style="margin-top: 20px;"></div>
-        </form>
+        </dl>
       </div>
     </section>
 
@@ -283,7 +380,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="container cta-inner">
         <h2 id="cta-titulo">Medianeira precisa da sua voz</h2>
         <p>Cada resposta é um tijolo na construção de uma cidade mais justa, transparente e organizada.</p>
-        <a href="#participar" class="btn-primary btn-lg btn-white">Participar gratuitamente</a>
+        <a href="participar.html" class="btn-primary btn-lg btn-white">Participar gratuitamente</a>
       </div>
     </section>
 
@@ -334,29 +431,33 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
   </footer>
 
-  <!-- Popups -->
+  <!-- Popup Interesse -->
   <div class="popup-overlay" id="popupInteresse" role="dialog" aria-modal="true" aria-labelledby="pi-titulo" hidden>
     <div class="popup-box">
       <button class="popup-close" onclick="fecharPopup('popupInteresse')" aria-label="Fechar">✕</button>
       <p class="popup-emoji" aria-hidden="true">📬</p>
       <h2 id="pi-titulo">Receba os resultados da pesquisa</h2>
-      <p>Cadastre seu email e seja o primeiro a saber o que a população de Medianeira pensa.</p>
+      <p>Cadastre seu email e seja o primeiro a saber o que a população de Medianeira pensa. Sem spam.</p>
       <form class="popup-form" onsubmit="capturarEmailInteresse(event)">
-        <input type="email" id="pi-email" placeholder="seuemail@gmail.com" required>
-        <button type="submit" class="btn-primary">Quero receber</button>
+        <label for="pi-email" class="sr-only">Seu email</label>
+        <div class="popup-row">
+          <input type="email" id="pi-email" name="email" placeholder="seuemail@gmail.com" required autocomplete="email">
+          <button type="submit" class="btn-primary">Quero receber</button>
+        </div>
       </form>
-      <button class="popup-skip" onclick="fecharPopup('popupInteresse')">Agora não</button>
+      <button class="popup-skip" onclick="fecharPopup('popupInteresse')">Agora não, obrigado</button>
     </div>
   </div>
 
+  <!-- Popup Abandono (exit intent) -->
   <div class="popup-overlay" id="popupAbandono" role="dialog" aria-modal="true" aria-labelledby="pa-titulo" hidden>
     <div class="popup-box">
       <button class="popup-close" onclick="fecharPopup('popupAbandono')" aria-label="Fechar">✕</button>
       <p class="popup-emoji" aria-hidden="true">🌿</p>
       <h2 id="pa-titulo">Espere! Sua voz ainda não foi ouvida.</h2>
-      <p>São apenas <strong>2 minutos</strong>. Cada resposta ajuda a mapear o que Medianeira realmente precisa.</p>
+      <p>São apenas <strong>2 minutos</strong>. Cada resposta ajuda a mapear o que Medianeira realmente precisa. Não vá embora sem participar!</p>
       <div class="popup-btns">
-        <a href="#participar" class="btn-primary">Participar agora</a>
+        <a href="participar.html" class="btn-primary">Participar agora</a>
         <button class="btn-ghost-sm" onclick="fecharPopup('popupAbandono')">Sair mesmo assim</button>
       </div>
     </div>
@@ -366,8 +467,4 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <script src="assets/main.js"></script>
 </body>
-  <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TMM6DJZJ"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
 </html>
