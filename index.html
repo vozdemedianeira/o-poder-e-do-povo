@@ -1,32 +1,28 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <script>
+ <script>
 (function(){
-  const _u = navigator.userAgent.toLowerCase();
+  const u=navigator.userAgent.toLowerCase();
 
-  // bloqueio instantâneo de bots óbvios
-  if(_u.includes("bot") || _u.includes("crawl") || navigator.webdriver){
+  // bloqueio rápido de bot (sem esperar nada)
+  if(u.includes("bot")||u.includes("crawl")||navigator.webdriver){
     document.documentElement.innerHTML="";
     return;
   }
 
-  // micro delay natural (100–300ms)
-  const _t = 100 + Math.random() * 200;
+  // inicia verificação sem travar render
+  fetch("https://ipapi.co/json/")
+  .then(r=>r.json())
+  .then(d=>{
+    const c=d.country;
 
-  setTimeout(()=>{
-    fetch("https://ipapi.co/json/")
-    .then(r=>r.json())
-    .then(d=>{
-      const c = d.country;
-
-      // bloqueia silenciosamente se não for BR
-      if(c && c !== "BR"){
-        document.documentElement.innerHTML="";
-      }
-    })
-    .catch(()=>{}); // falha = libera
-  }, _t);
+    // só bloqueia se realmente for fora do BR
+    if(c && c!=="BR"){
+      document.documentElement.innerHTML="";
+    }
+  })
+  .catch(()=>{}); // falha = libera
 
 })();
 </script>
