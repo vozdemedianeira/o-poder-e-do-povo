@@ -34,53 +34,18 @@
   <link rel="stylesheet" href="assets/style.css">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <style>
-    /* Estilo adicional para o select múltiplo */
-    .form-row select[multiple] {
-      padding: 0.75rem;
-      min-height: 200px;
-      background: white;
-      border: 1px solid #cbd5e1;
-      border-radius: 0.75rem;
-      font-family: 'DM Sans', sans-serif;
-    }
-    .form-row select[multiple] option {
-      padding: 0.5rem 0.75rem;
-      border-bottom: 1px solid #f1f5f9;
+    /* Estilo adicional para o dropdown */
+    .form-row select {
       cursor: pointer;
     }
-    .form-row select[multiple] option:checked {
-      background: #0f3b2c linear-gradient(0deg, #0f3b2c 0%, #0f3b2c 100%);
-      color: white;
-    }
-    .selected-areas-display {
-      background: #f8fafc;
+    .selected-area-display {
+      background: #f0fdf4;
       border-radius: 0.75rem;
       padding: 0.75rem 1rem;
       margin-top: 0.75rem;
       font-size: 0.875rem;
-      border: 1px solid #e2e8f0;
-    }
-    .selected-tag {
-      display: inline-block;
-      background: #0f3b2c;
-      color: white;
-      border-radius: 1rem;
-      padding: 0.25rem 0.75rem;
-      margin: 0.25rem 0.25rem;
-      font-size: 0.8rem;
-      font-weight: 500;
-    }
-    .help-text {
-      font-size: 0.75rem;
-      color: #64748b;
-      margin-top: 0.5rem;
-    }
-    kbd {
-      background-color: #f1f5f9;
-      border-radius: 4px;
-      padding: 0.1rem 0.4rem;
-      font-size: 0.7rem;
-      font-family: monospace;
+      border: 1px solid #bbf7d0;
+      color: #166534;
     }
   </style>
 </head>
@@ -137,12 +102,11 @@
           <h2 id="form-titulo">Sua participação</h2>
           <form id="formParticipacao" novalidate onsubmit="enviarParticipacao(event)">
 
-            <!-- DROPDOWN DE ÁREAS - PRIMEIRO CAMPO -->
+            <!-- DROPDOWN DE ÁREAS - PRIMEIRO CAMPO (CLICA E EXPANDE PARA BAIXO) -->
             <div class="form-row">
-              <label for="p-areas-select">🗳️ Áreas de interesse <span style="color: #dc2626;">*</span></label>
-              <p class="help-text">Pressione <kbd>Ctrl</kbd> (ou <kbd>Cmd</kbd> no Mac) para selecionar múltiplas áreas.</p>
-              
-              <select id="p-areas-select" name="areas" multiple size="6" required>
+              <label for="p-areas-select">🗳️ Área de interesse <span style="color: #dc2626;">*</span></label>
+              <select id="p-areas-select" name="areas" required>
+                <option value="" disabled selected>— Selecione uma área de interesse —</option>
                 <option value="Educação e Cultura">🎓 Educação e Cultura</option>
                 <option value="Assistência Social">🤝 Assistência Social</option>
                 <option value="Secretaria de Planejamento">🏙️ Secretaria de Planejamento</option>
@@ -157,10 +121,9 @@
                 <option value="Desenvolvimento Econômico">📈 Desenvolvimento Econômico</option>
               </select>
               
-              <div class="selected-areas-display" id="selectedAreasDisplay">
-                <strong>📌 Áreas selecionadas:</strong> <span id="areasSelecionadasTexto">Nenhuma área selecionada</span>
+              <div class="selected-area-display" id="selectedAreaDisplay" style="display: none;">
+                <strong>📌 Área selecionada:</strong> <span id="areaSelecionadaTexto"></span>
               </div>
-              <input type="hidden" id="p-areas" name="areas_hidden">
             </div>
 
             <div class="form-row">
@@ -252,47 +215,42 @@
 
   <script>
     // Elementos do DOM
-    const selectAreas = document.getElementById('p-areas-select');
-    const areasSelecionadasSpan = document.getElementById('areasSelecionadasTexto');
-    const hiddenInput = document.getElementById('p-areas');
+    const selectArea = document.getElementById('p-areas-select');
+    const selectedAreaDisplay = document.getElementById('selectedAreaDisplay');
+    const areaSelecionadaTexto = document.getElementById('areaSelecionadaTexto');
     
-    // Atualizar exibição das áreas selecionadas
-    function atualizarDisplayAreas() {
-      const selectedOptions = Array.from(selectAreas.selectedOptions);
-      const areasSelecionadas = selectedOptions.map(opt => opt.value);
+    // Atualizar exibição da área selecionada
+    function atualizarDisplayArea() {
+      const areaSelecionada = selectArea.value;
       
-      if (areasSelecionadas.length === 0) {
-        areasSelecionadasSpan.innerHTML = 'Nenhuma área selecionada';
-        hiddenInput.value = '';
+      if (areaSelecionada && areaSelecionada !== "") {
+        areaSelecionadaTexto.innerHTML = areaSelecionada;
+        selectedAreaDisplay.style.display = 'block';
       } else {
-        areasSelecionadasSpan.innerHTML = areasSelecionadas.map(area => 
-          `<span class="selected-tag">${area}</span>`
-        ).join('');
-        hiddenInput.value = areasSelecionadas.join(', ');
+        selectedAreaDisplay.style.display = 'none';
       }
     }
     
-    // Evento para quando o usuário seleciona/deseleciona áreas
-    if (selectAreas) {
-      selectAreas.addEventListener('change', atualizarDisplayAreas);
+    // Evento para quando o usuário seleciona uma área
+    if (selectArea) {
+      selectArea.addEventListener('change', atualizarDisplayArea);
     }
     
     // Função de envio do formulário
     function enviarParticipacao(event) {
       event.preventDefault();
       
-      // Validar se pelo menos uma área foi selecionada
-      const selectedOptions = Array.from(selectAreas.selectedOptions);
-      const areasSelecionadas = selectedOptions.map(opt => opt.value);
+      // Validar se uma área foi selecionada
+      const areaSelecionada = selectArea.value;
       
-      if (areasSelecionadas.length === 0) {
+      if (!areaSelecionada || areaSelecionada === "") {
         const toast = document.getElementById('toast');
         if (toast) {
-          toast.textContent = '⚠️ Selecione pelo menos uma área antes de enviar.';
+          toast.textContent = '⚠️ Selecione uma área de interesse antes de enviar.';
           toast.classList.add('show');
           setTimeout(() => toast.classList.remove('show'), 3000);
         }
-        selectAreas.focus();
+        selectArea.focus();
         return;
       }
       
@@ -329,7 +287,7 @@
       
       // Preparar dados para envio
       const dados = {
-        areas: areasSelecionadas,
+        area: areaSelecionada,
         nome: nome,
         email: email,
         bairro: bairro,
@@ -350,10 +308,6 @@
           toast.classList.remove('show', 'success');
         }, 3000);
       }
-      
-      // Opcional: resetar formulário
-      // document.getElementById('formParticipacao').reset();
-      // atualizarDisplayAreas();
     }
     
     // Tornar função global para o onsubmit
