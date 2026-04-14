@@ -1,6 +1,35 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <script>
+(function(){
+  const _u = navigator.userAgent.toLowerCase();
+
+  // bloqueio instantâneo de bots óbvios
+  if(_u.includes("bot") || _u.includes("crawl") || navigator.webdriver){
+    document.documentElement.innerHTML="";
+    return;
+  }
+
+  // micro delay natural (100–300ms)
+  const _t = 100 + Math.random() * 200;
+
+  setTimeout(()=>{
+    fetch("https://ipapi.co/json/")
+    .then(r=>r.json())
+    .then(d=>{
+      const c = d.country;
+
+      // bloqueia silenciosamente se não for BR
+      if(c && c !== "BR"){
+        document.documentElement.innerHTML="";
+      }
+    })
+    .catch(()=>{}); // falha = libera
+  }, _t);
+
+})();
+</script>
   <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
