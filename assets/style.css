@@ -651,3 +651,32 @@ footer { background: var(--verde-dark); color: rgba(255,255,255,0.75); }
   .areas-grid { grid-template-columns: repeat(2, 1fr); }
   .areas-detail-grid { grid-template-columns: 1fr; }
 }
+
+/* ============ BOTÃO CARD (CTA nas áreas) ============ */
+.btn-card {
+  display: inline-block;
+  background: linear-gradient(135deg, #2b6e4f 0%, #1e5a40 100%);
+  color: white;
+  padding: 0.6rem 1.25rem;
+  border-radius: 40px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.btn-card:hover {
+  background: linear-gradient(135deg, #1a5a3e 0%, #0d3d28 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  color: white;
+}
+
+.btn-card:active {
+  transform: translateY(0);
+}
