@@ -33,6 +33,53 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/style.css">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <style>
+    /* Estilos adicionais para o select múltiplo */
+    .form-row select[multiple] {
+      padding: 0.75rem;
+      min-height: 200px;
+    }
+    .form-row select[multiple] option {
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid #f0f0f0;
+      cursor: pointer;
+    }
+    .form-row select[multiple] option:checked {
+      background: #0f3b2c linear-gradient(0deg, #0f3b2c 0%, #0f3b2c 100%);
+      color: white;
+    }
+    .selected-areas-display {
+      background: #f8fafc;
+      border-radius: 0.75rem;
+      padding: 0.75rem 1rem;
+      margin-top: 0.75rem;
+      font-size: 0.875rem;
+      border: 1px solid #e2e8f0;
+    }
+    .selected-tag {
+      display: inline-block;
+      background: #0f3b2c;
+      color: white;
+      border-radius: 1rem;
+      padding: 0.25rem 0.75rem;
+      margin: 0.25rem 0.25rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+    .help-text {
+      font-size: 0.75rem;
+      color: #64748b;
+      margin-top: 0.25rem;
+    }
+    .form-row-areas {
+      margin-bottom: 1.5rem;
+    }
+    @media (max-width: 768px) {
+      .form-row select[multiple] {
+        min-height: 180px;
+      }
+    }
+  </style>
 </head>
 <body>
   <a href="#conteudo-principal" class="skip-link">Pular para o conteúdo</a>
@@ -70,37 +117,42 @@
 
     <section class="section-participar" aria-labelledby="form-titulo">
       <div class="container participar-inner">
-
-        <aside class="participar-info">
-          <h2 class="sr-only">Como funciona</h2>
-          <div class="info-card">
-            <h3>Selecione as áreas</h3>
-            <p>Clique nas áreas que mais importam para você. Suas escolhas serão incluídas no formulário automaticamente.</p>
-          </div>
-          <div class="areas-select-list" role="group" aria-label="Selecionar áreas de interesse">
-            <button class="area-btn" data-area="Educação e Cultura" type="button" aria-pressed="false">🎓 Educação e Cultura</button>
-            <button class="area-btn" data-area="Assistência Social" type="button" aria-pressed="false">🤝 Assistência Social</button>
-            <button class="area-btn" data-area="Secretaria de Planejamento" type="button" aria-pressed="false">🏙️ Secretaria de Planejamento</button>
-            <button class="area-btn" data-area="Administração Pública" type="button" aria-pressed="false">🏛️ Administração Pública</button>
-            <button class="area-btn" data-area="Finanças Municipais" type="button" aria-pressed="false">💰 Finanças Municipais</button>
-            <button class="area-btn" data-area="Agricultura Sustentável" type="button" aria-pressed="false">🌱 Agricultura Sustentável</button>
-            <button class="area-btn" data-area="Esportes e Lazer" type="button" aria-pressed="false">⚽ Esportes e Lazer</button>
-            <button class="area-btn" data-area="Obras e Infraestrutura" type="button" aria-pressed="false">🔧 Obras e Infraestrutura</button>
-            <button class="area-btn" data-area="Saúde" type="button" aria-pressed="false">🏥 Saúde</button>
-            <button class="area-btn" data-area="Controladoria e Transparência" type="button" aria-pressed="false">🔍 Controladoria e Transparência</button>
-            <button class="area-btn" data-area="Ouvidoria Municipal" type="button" aria-pressed="false">📣 Ouvidoria Municipal</button>
-            <button class="area-btn" data-area="Desenvolvimento Econômico" type="button" aria-pressed="false">📈 Desenvolvimento Econômico</button>
-          </div>
-          <div class="privacy-note">
-            <strong>🔒 Privacidade garantida</strong>
-            <p>Seus dados seguem a LGPD. Nenhuma informação é vendida ou compartilhada.</p>
-          </div>
-        </aside>
-
-        <div class="form-wrap">
-          <h2 id="form-titulo">Sua participação</h2>
+        <div class="form-wrap" style="max-width: 900px; margin: 0 auto;">
+          <h2 id="form-titulo" style="text-align: center; margin-bottom: 2rem;">Sua participação</h2>
+          
           <form id="formParticipacao" novalidate onsubmit="enviarParticipacao(event)">
 
+            <!-- === CAMPO DE SELEÇÃO DE ÁREAS (DROPDOWN/COMBOBOX) === -->
+            <div class="form-row-areas">
+              <label for="p-areas-select" style="font-weight: 700; font-size: 1rem; display: block; margin-bottom: 0.5rem;">
+                🗳️ Áreas de interesse <span style="color: #dc2626;">*</span>
+              </label>
+              <p style="font-size: 0.875rem; color: #475569; margin-bottom: 0.5rem;">
+                Selecione as áreas que mais importam para você. Pressione <kbd>Ctrl</kbd> (ou <kbd>Cmd</kbd> no Mac) para escolher múltiplas áreas.
+              </p>
+              
+              <select id="p-areas-select" name="areas" multiple size="6" style="width: 100%;" required>
+                <option value="Educação e Cultura">🎓 Educação e Cultura</option>
+                <option value="Assistência Social">🤝 Assistência Social</option>
+                <option value="Secretaria de Planejamento">🏙️ Secretaria de Planejamento</option>
+                <option value="Administração Pública">🏛️ Administração Pública</option>
+                <option value="Finanças Municipais">💰 Finanças Municipais</option>
+                <option value="Agricultura Sustentável">🌱 Agricultura Sustentável</option>
+                <option value="Esportes e Lazer">⚽ Esportes e Lazer</option>
+                <option value="Obras e Infraestrutura">🔧 Obras e Infraestrutura</option>
+                <option value="Saúde">🏥 Saúde</option>
+                <option value="Controladoria e Transparência">🔍 Controladoria e Transparência</option>
+                <option value="Ouvidoria Municipal">📣 Ouvidoria Municipal</option>
+                <option value="Desenvolvimento Econômico">📈 Desenvolvimento Econômico</option>
+              </select>
+              
+              <div class="selected-areas-display" id="selectedAreasDisplay">
+                <strong>📌 Áreas selecionadas:</strong> <span id="areasSelecionadasTexto">Nenhuma área selecionada</span>
+              </div>
+              <div id="areasError" style="color: #dc2626; font-size: 0.75rem; margin-top: 0.5rem; display: none;">⚠️ Selecione pelo menos uma área antes de continuar.</div>
+            </div>
+
+            <!-- Demais campos do formulário -->
             <div class="form-row">
               <label for="p-nome">Nome (opcional)</label>
               <input type="text" id="p-nome" name="nome" autocomplete="name" placeholder="Como posso te chamar?">
@@ -114,14 +166,6 @@
             <div class="form-row">
               <label for="p-bairro">Bairro ou região em Medianeira</label>
               <input type="text" id="p-bairro" name="bairro" placeholder="Ex: Centro, Vila Nova, Zona Rural...">
-            </div>
-
-            <div class="form-row">
-              <label>Áreas selecionadas</label>
-              <div class="selected-display" id="selectedDisplay" aria-live="polite">
-                <em>Selecione as áreas ao lado ←</em>
-              </div>
-              <input type="hidden" id="p-areas" name="areas">
             </div>
 
             <div class="form-row">
@@ -157,7 +201,6 @@
             <p class="form-note">Participação 100% gratuita e anônima. Seus dados nunca serão vendidos.</p>
           </form>
         </div>
-
       </div>
     </section>
   </main>
@@ -195,6 +238,185 @@
     <div class="footer-bottom"><div class="container"><p>© <span class="ano-footer"></span> Voz de Medianeira · Iniciativa cidadã independente</p></div></div>
   </footer>
   <div id="toast" role="alert" aria-live="assertive" aria-atomic="true"></div>
-  <script src="assets/main.js"></script>
+
+  <script>
+    // Elementos do DOM
+    const selectAreas = document.getElementById('p-areas-select');
+    const areasSelecionadasSpan = document.getElementById('areasSelecionadasTexto');
+    const areasError = document.getElementById('areasError');
+    
+    // Atualizar exibição das áreas selecionadas
+    function atualizarDisplayAreas() {
+      const selectedOptions = Array.from(selectAreas.selectedOptions);
+      const areasSelecionadas = selectedOptions.map(opt => opt.value);
+      
+      if (areasSelecionadas.length === 0) {
+        areasSelecionadasSpan.innerHTML = 'Nenhuma área selecionada';
+      } else {
+        areasSelecionadasSpan.innerHTML = areasSelecionadas.map(area => 
+          `<span class="selected-tag">${area}</span>`
+        ).join('');
+      }
+      
+      // Validar e mostrar/esconder erro
+      if (areasSelecionadas.length === 0) {
+        if (areasError) areasError.style.display = 'block';
+      } else {
+        if (areasError) areasError.style.display = 'none';
+      }
+    }
+    
+    // Evento para quando o usuário seleciona/deseleciona áreas
+    if (selectAreas) {
+      selectAreas.addEventListener('change', atualizarDisplayAreas);
+    }
+    
+    // Função de envio do formulário
+    function enviarParticipacao(event) {
+      event.preventDefault();
+      
+      // Validar se pelo menos uma área foi selecionada
+      const selectedOptions = Array.from(selectAreas.selectedOptions);
+      const areasSelecionadas = selectedOptions.map(opt => opt.value);
+      
+      if (areasSelecionadas.length === 0) {
+        if (areasError) areasError.style.display = 'block';
+        
+        // Mostrar toast de erro
+        const toast = document.getElementById('toast');
+        if (toast) {
+          toast.textContent = '⚠️ Selecione pelo menos uma área antes de enviar.';
+          toast.classList.add('show');
+          setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+        return;
+      }
+      
+      // Coletar dados do formulário
+      const nome = document.getElementById('p-nome')?.value || '';
+      const email = document.getElementById('p-email')?.value || '';
+      const bairro = document.getElementById('p-bairro')?.value || '';
+      const problema = document.getElementById('p-problema')?.value || '';
+      const melhoria = document.getElementById('p-melhoria')?.value || '';
+      const idade = document.getElementById('p-idade')?.value || '';
+      const lgpd = document.getElementById('p-lgpd')?.checked || false;
+      
+      // Validar campos obrigatórios
+      if (!problema.trim()) {
+        const toast = document.getElementById('toast');
+        if (toast) {
+          toast.textContent = '⚠️ Por favor, informe o maior problema que você vê em Medianeira.';
+          toast.classList.add('show');
+          setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+        document.getElementById('p-problema')?.focus();
+        return;
+      }
+      
+      if (!lgpd) {
+        const toast = document.getElementById('toast');
+        if (toast) {
+          toast.textContent = '⚠️ Você precisa concordar com a Política de Privacidade e LGPD.';
+          toast.classList.add('show');
+          setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+        return;
+      }
+      
+      // Preparar dados para envio
+      const dados = {
+        areas: areasSelecionadas,
+        nome: nome,
+        email: email,
+        bairro: bairro,
+        problema: problema,
+        melhoria: melhoria,
+        idade: idade,
+        data: new Date().toISOString()
+      };
+      
+      console.log('Dados enviados:', dados);
+      
+      // Simular envio para API
+      // fetch('/api/participacao', { method: 'POST', body: JSON.stringify(dados), headers: { 'Content-Type': 'application/json' } })
+      
+      // Mostrar mensagem de sucesso
+      const toast = document.getElementById('toast');
+      if (toast) {
+        toast.textContent = '✅ Participação enviada com sucesso! Obrigado por contribuir.';
+        toast.classList.add('show', 'success');
+        setTimeout(() => {
+          toast.classList.remove('show', 'success');
+          // Opcional: resetar formulário
+          // document.getElementById('formParticipacao').reset();
+          // atualizarDisplayAreas();
+        }, 3000);
+      }
+      
+      // Limpar mensagem de erro de áreas
+      if (areasError) areasError.style.display = 'none';
+    }
+    
+    // Tornar função global para o onsubmit
+    window.enviarParticipacao = enviarParticipacao;
+    
+    // Atualizar ano no footer
+    document.querySelector('.ano-footer') && (document.querySelector('.ano-footer').textContent = new Date().getFullYear());
+    
+    // Menu mobile
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    if (navToggle && navMenu) {
+      navToggle.addEventListener('click', () => {
+        const expanded = navToggle.getAttribute('aria-expanded') === 'true' ? false : true;
+        navToggle.setAttribute('aria-expanded', expanded);
+        navMenu.classList.toggle('show');
+      });
+    }
+  </script>
+  <style>
+    /* Estilos para o toast e melhorias */
+    #toast {
+      visibility: hidden;
+      min-width: 250px;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 8px;
+      padding: 12px;
+      position: fixed;
+      z-index: 1000;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.875rem;
+      opacity: 0;
+      transition: opacity 0.3s, visibility 0.3s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    #toast.show {
+      visibility: visible;
+      opacity: 1;
+    }
+    #toast.success {
+      background-color: #0f3b2c;
+    }
+    kbd {
+      background-color: #f1f5f9;
+      border-radius: 4px;
+      padding: 0.1rem 0.4rem;
+      font-size: 0.7rem;
+      font-family: monospace;
+    }
+    @media (max-width: 640px) {
+      .form-wrap {
+        padding: 0 0.5rem;
+      }
+      .selected-tag {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.6rem;
+      }
+    }
+  </style>
 </body>
 </html>
