@@ -46,12 +46,17 @@ document.querySelectorAll('.faq-item dt button').forEach(function(btn){
 });
 
 // ─── TOAST ──────────────────────────────────────────────────
-function mostrarToast(msg) {
+function mostrarToast(msg, tipo) {
   var toast = document.getElementById('toast');
   if (!toast) return;
   toast.textContent = msg;
+  toast.classList.remove('success', 'error');
+  if (tipo === 'success') toast.classList.add('success');
+  if (tipo === 'error') toast.classList.add('error');
   toast.classList.add('show');
-  setTimeout(function(){ toast.classList.remove('show'); }, 3500);
+  setTimeout(function(){ 
+    toast.classList.remove('show', 'success', 'error'); 
+  }, 4000);
 }
 
 // ─── POPUPS ─────────────────────────────────────────────────
@@ -126,6 +131,28 @@ document.addEventListener('keydown', function(e){
   }
 });
 
+// ─── MÁSCARA DE TELEFONE ────────────────────────────────────
+var telefoneInput = document.getElementById('p-telefone');
+if (telefoneInput) {
+  telefoneInput.addEventListener('input', function(e) {
+    var value = e.target.value.replace(/\D/g, '');
+    if (value.length > 11) value = value.slice(0, 11);
+    
+    if (value.length > 0) {
+      if (value.length <= 2) {
+        value = '(' + value;
+      } else if (value.length <= 6) {
+        value = '(' + value.slice(0, 2) + ') ' + value.slice(2);
+      } else if (value.length <= 10) {
+        value = '(' + value.slice(0, 2) + ') ' + value.slice(2, 6) + ' ' + value.slice(6);
+      } else {
+        value = '(' + value.slice(0, 2) + ') ' + value.slice(2, 7) + ' ' + value.slice(7, 11);
+      }
+    }
+    e.target.value = value;
+  });
+}
+
 // ─── CAPTURA EMAIL (popup interesse) ────────────────────────
 function capturarEmailInteresse(event) {
   event.preventDefault();
@@ -138,7 +165,7 @@ function capturarEmailInteresse(event) {
   }
   fecharPopup('popupInteresse');
   enviarEmailParaSheets({ email: email, origem: 'popup_interesse', data: dataAtual() });
-  mostrarToast('✅ Cadastrado! Você receberá os resultados em breve.');
+  mostrarToast('✅ Cadastrado! Você receberá os resultados em breve.', 'success');
 }
 
 // ─── FORMULÁRIO PRINCIPAL (participar.html) ──────────────────
@@ -175,45 +202,94 @@ function atualizarSelectedDisplay() {
 
 function enviarParticipacao(event) {
   event.preventDefault();
-  var problema = document.getElementById('p-problema');
-  var lgpd     = document.getElementById('p-lgpd');
-  if (!problema || !problema.value.trim()) {
-    mostrarToast('⚠️ Por favor, responda qual é o maior problema que você vê.');
-    if (problema) problema.focus();
+  
+  // Validar nome obrigatório
+  var nomeInput = document.getElementById('p-nome');
+  var nome = nomeInput ? nomeInput.value.trim() : '';
+  if (!nome) {
+    mostrarToast('⚠️ Por favor, informe seu nome.', 'error');
+    if (nomeInput) nomeInput.focus();
     return;
   }
-  if (!lgpd || !lgpd.checked) {
-    mostrarToast('⚠️ Por favor, aceite a Política de Privacidade para continuar.');
-    if (lgpd) lgpd.focus();
+  
+  // Validar email obrigatório e formato
+  var emailInput = document.getElementById('p-email');
+  var email = emailInput ? emailInput.value.trim() : '';
+  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
+  if (!email) {
+    mostrarToast('⚠️ Por favor, informe seu email.', 'error');
+    if (emailInput) emailInput.focus();
     return;
   }
+  
+  if (!emailRegex.test(email)) {
+    mostrarToast('⚠️ Por favor, informe um email válido (ex: nome@email.com).', 'error');
+    if (emailInput) emailInput.focus();
+    return;
+  }
+  
+  // Validar área selecionada (dropdown)
+  var selectArea = document.getElementById('p-areas-select');
+  var areaSelecionada = selectArea ? selectArea.value : '';
+  if (!areaSelecionada || areaSelecionada === "") {
+    mostrarToast('⚠️ Selecione uma área de interesse antes de enviar.', 'error');
+    if (selectArea) selectArea.focus();
+    return;
+  }
+  
+  // Validar problema
+  var problemaInput = document.getElementById('p-problema');
+  var problema = problemaInput ? problemaInput.value.trim() : '';
+  if (!problema) {
+    mostrarToast('⚠️ Por favor, responda qual é o maior problema que você vê.', 'error');
+    if (problemaInput) problemaInput.focus();
+    return;
+  }
+  
+  // Validar LGPD
+  var lgpdCheck = document.getElementById('p-lgpd');
+  if (!lgpdCheck || !lgpdCheck.checked) {
+    mostrarToast('⚠️ Por favor, aceite a Política de Privacidade para continuar.', 'error');
+    return;
+  }
+  
   var dados = {
     origem:   'formulario_principal',
     data:     dataAtual(),
-    nome:     val('p-nome') || 'Anônimo',
-    email:    val('p-email'),
+    area:     areaSelecionada,
+    nome:     nome,
+    email:    email,
+    telefone: val('p-telefone'),
     bairro:   val('p-bairro'),
-    areas:    selectedAreas.join(', ') || 'Nenhuma',
-    problema: val('p-problema'),
+    problema: problema,
     melhoria: val('p-melhoria'),
     idade:    val('p-idade'),
   };
-  mostrarToast('⏳ Enviando sua participação...');
+  
+  mostrarToast('⏳ Enviando sua participação...', 'info');
   enviarEmailParaSheets(dados, function(){
-    mostrarToast('🎉 Obrigado! Sua participação foi registrada com sucesso!');
+    mostrarToast('🎉 Obrigado! Sua participação foi registrada com sucesso!', 'success');
     limparFormParticipacao();
   });
 }
 
 function limparFormParticipacao() {
-  ['p-nome','p-email','p-bairro','p-problema','p-melhoria'].forEach(function(id){
+  ['p-nome', 'p-email', 'p-telefone', 'p-bairro', 'p-problema', 'p-melhoria'].forEach(function(id){
     var el = document.getElementById(id);
     if (el) el.value = '';
   });
+  var selectArea = document.getElementById('p-areas-select');
+  if (selectArea) selectArea.value = '';
   var idade = document.getElementById('p-idade');
   if (idade) idade.selectedIndex = 0;
   var lgpd = document.getElementById('p-lgpd');
   if (lgpd) lgpd.checked = false;
+  
+  // Esconder display da área selecionada
+  var selectedAreaDisplay = document.getElementById('selectedAreaDisplay');
+  if (selectedAreaDisplay) selectedAreaDisplay.style.display = 'none';
+  
   selectedAreas = [];
   document.querySelectorAll('.area-btn').forEach(function(b){ b.setAttribute('aria-pressed','false'); });
   atualizarSelectedDisplay();
@@ -226,10 +302,10 @@ function enviarContato(event) {
   var email    = val('c-email');
   var mensagem = val('c-mensagem');
   var lgpd     = document.getElementById('c-lgpd');
-  if (!nome) { mostrarToast('⚠️ Por favor, informe seu nome.'); return; }
-  if (!email || !email.includes('@')) { mostrarToast('⚠️ Por favor, informe um email válido.'); return; }
-  if (!mensagem) { mostrarToast('⚠️ Por favor, escreva sua mensagem.'); return; }
-  if (!lgpd || !lgpd.checked) { mostrarToast('⚠️ Por favor, aceite a Política de Privacidade.'); return; }
+  if (!nome) { mostrarToast('⚠️ Por favor, informe seu nome.', 'error'); return; }
+  if (!email || !email.includes('@')) { mostrarToast('⚠️ Por favor, informe um email válido.', 'error'); return; }
+  if (!mensagem) { mostrarToast('⚠️ Por favor, escreva sua mensagem.', 'error'); return; }
+  if (!lgpd || !lgpd.checked) { mostrarToast('⚠️ Por favor, aceite a Política de Privacidade.', 'error'); return; }
   var dados = {
     origem:   'contato',
     data:     dataAtual(),
@@ -238,9 +314,9 @@ function enviarContato(event) {
     assunto:  val('c-assunto'),
     mensagem: mensagem,
   };
-  mostrarToast('⏳ Enviando mensagem...');
+  mostrarToast('⏳ Enviando mensagem...', 'info');
   enviarEmailParaSheets(dados, function(){
-    mostrarToast('✅ Mensagem enviada! Responderemos em até 3 dias úteis.');
+    mostrarToast('✅ Mensagem enviada! Responderemos em até 3 dias úteis.', 'success');
     var form = document.getElementById('contatoForm');
     if (form) form.reset();
   });
