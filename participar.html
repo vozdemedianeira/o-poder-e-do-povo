@@ -472,5 +472,172 @@
       });
     }
   </script>
+  <!-- POPUP DE COMPARTILHAMENTO SOCIAL -->
+<div id="popupCompartilhar" class="popup-social" style="display: none;">
+  <div class="popup-social-overlay"></div>
+  <div class="popup-social-content">
+    <button class="popup-social-close" onclick="fecharPopupCompartilhar()">✕</button>
+    <div class="popup-social-icon">🎉</div>
+    <h3>Obrigado por participar!</h3>
+    <p>Sua opinião é muito importante para Medianeira. Compartilhe com seus amigos e incentive mais pessoas a participarem da pesquisa!</p>
+    
+    <div class="popup-social-buttons">
+      <a href="#" id="shareWhatsApp" class="social-btn whatsapp" target="_blank">
+        <span>📱</span> WhatsApp
+      </a>
+      <a href="#" id="shareInstagram" class="social-btn instagram" target="_blank">
+        <span>📸</span> Instagram
+      </a>
+      <a href="#" id="shareMessenger" class="social-btn messenger" target="_blank">
+        <span>💬</span> Messenger
+      </a>
+    </div>
+    
+    <button class="popup-social-later" onclick="fecharPopupCompartilhar()">Agora não, obrigado</button>
+  </div>
+</div>
+
+<style>
+  .popup-social {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .popup-social-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+  }
+  
+  .popup-social-content {
+    position: relative;
+    background: white;
+    border-radius: 1.5rem;
+    max-width: 90%;
+    width: 400px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    box-shadow: 0 20px 35px -8px rgba(0,0,0,0.3);
+    animation: popupSocialIn 0.3s ease-out;
+    z-index: 10000;
+  }
+  
+  @keyframes popupSocialIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  .popup-social-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    cursor: pointer;
+    color: #6b7280;
+    transition: color 0.2s;
+  }
+  
+  .popup-social-close:hover {
+    color: #1f2937;
+  }
+  
+  .popup-social-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .popup-social-content h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #0f3b2c;
+    margin-bottom: 0.75rem;
+  }
+  
+  .popup-social-content p {
+    font-size: 0.9rem;
+    color: #4b5563;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+  }
+  
+  .popup-social-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border-radius: 0.75rem;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: transform 0.2s, opacity 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  
+  .social-btn:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+  }
+  
+  .social-btn.whatsapp {
+    background: #25D366;
+    color: white;
+  }
+  
+  .social-btn.instagram {
+    background: linear-gradient(45deg, #f09433, #d62976, #962fbf);
+    color: white;
+  }
+  
+  .social-btn.messenger {
+    background: #0084ff;
+    color: white;
+  }
+  
+  .social-btn span {
+    font-size: 1.25rem;
+  }
+  
+  .popup-social-later {
+    background: none;
+    border: none;
+    color: #9ca3af;
+    cursor: pointer;
+    font-size: 0.85rem;
+    text-decoration: underline;
+    transition: color 0.2s;
+  }
+  
+  .popup-social-later:hover {
+    color: #6b7280;
+  }
+</style>
 </body>
 </html>
