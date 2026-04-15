@@ -47,6 +47,46 @@
       border: 1px solid #bbf7d0;
       color: #166534;
     }
+    /* Estilos para o toast */
+    #toast {
+      visibility: hidden;
+      min-width: 280px;
+      background-color: #1e293b;
+      color: #fff;
+      text-align: center;
+      border-radius: 12px;
+      padding: 14px 20px;
+      position: fixed;
+      z-index: 1000;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.9rem;
+      font-weight: 500;
+      opacity: 0;
+      transition: opacity 0.3s, visibility 0.3s;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.2);
+      pointer-events: none;
+    }
+    #toast.show {
+      visibility: visible;
+      opacity: 1;
+    }
+    #toast.success {
+      background-color: #0f3b2c;
+      border-left: 4px solid #4ade80;
+    }
+    #toast.error {
+      background-color: #7f1a1a;
+      border-left: 4px solid #f87171;
+    }
+    .btn-full {
+      width: 100%;
+    }
+    .btn-lg {
+      padding: 1rem 1.5rem;
+      font-size: 1.1rem;
+    }
   </style>
 </head>
 <body>
@@ -102,7 +142,7 @@
           <h2 id="form-titulo">Sua participação</h2>
           <form id="formParticipacao" novalidate onsubmit="enviarParticipacao(event)">
 
-            <!-- DROPDOWN DE ÁREAS - PRIMEIRO CAMPO (CLICA E EXPANDE PARA BAIXO) -->
+            <!-- DROPDOWN DE ÁREAS - PRIMEIRO CAMPO -->
             <div class="form-row">
               <label for="p-areas-select">🗳️ Área de interesse <span style="color: #dc2626;">*</span></label>
               <select id="p-areas-select" name="areas" required>
@@ -236,77 +276,126 @@
       selectArea.addEventListener('change', atualizarDisplayArea);
     }
     
-    // Função de envio do formulário
-    function enviarParticipacao(event) {
+    // Função para mostrar notificações
+    function mostrarToast(mensagem, tipo = 'info') {
+      const toast = document.getElementById('toast');
+      toast.textContent = mensagem;
+      toast.classList.remove('success', 'error');
+      if (tipo === 'success') toast.classList.add('success');
+      if (tipo === 'error') toast.classList.add('error');
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show', 'success', 'error');
+      }, 4000);
+    }
+    
+    // ============================================================
+    // ⚠️ ATENÇÃO: SUBSTITUA A URL ABAIXO PELA SUA URL DO APPS SCRIPT
+    // ============================================================
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxczRIdUaq3Dq2isNimRhOw1zp1GzQiASVxnqxx9TuJ-bIfCyCsYO9fJ2e_YgcIBRUzlA/exec';
+    // ============================================================
+    
+    // Função principal de envio para o Google Sheets
+    async function enviarParaGoogleSheets(dados) {
+      try {
+        // Usando fetch com mode no-cors para evitar problemas de CORS
+        const response = await fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(dados)
+        });
+        
+        // Com 'no-cors', não conseguimos ler a resposta diretamente
+        // Consideramos como sucesso se não houve erro de rede
+        return { success: true };
+      } catch (erro) {
+        console.error('Erro detalhado:', erro);
+        return { success: false, erro: erro.message };
+      }
+    }
+    
+    // Função de envio do formulário (chamada pelo onsubmit)
+    async function enviarParticipacao(event) {
       event.preventDefault();
       
-      // Validar se uma área foi selecionada
+      // Validar área selecionada
       const areaSelecionada = selectArea.value;
-      
       if (!areaSelecionada || areaSelecionada === "") {
-        const toast = document.getElementById('toast');
-        if (toast) {
-          toast.textContent = '⚠️ Selecione uma área de interesse antes de enviar.';
-          toast.classList.add('show');
-          setTimeout(() => toast.classList.remove('show'), 3000);
-        }
+        mostrarToast('⚠️ Selecione uma área de interesse antes de enviar.', 'error');
         selectArea.focus();
         return;
       }
       
-      // Coletar dados do formulário
-      const nome = document.getElementById('p-nome')?.value || '';
-      const email = document.getElementById('p-email')?.value || '';
-      const bairro = document.getElementById('p-bairro')?.value || '';
-      const problema = document.getElementById('p-problema')?.value || '';
-      const melhoria = document.getElementById('p-melhoria')?.value || '';
-      const idade = document.getElementById('p-idade')?.value || '';
-      const lgpd = document.getElementById('p-lgpd')?.checked || false;
-      
-      // Validar campos obrigatórios
-      if (!problema.trim()) {
-        const toast = document.getElementById('toast');
-        if (toast) {
-          toast.textContent = '⚠️ Por favor, informe o maior problema que você vê em Medianeira.';
-          toast.classList.add('show');
-          setTimeout(() => toast.classList.remove('show'), 3000);
-        }
-        document.getElementById('p-problema')?.focus();
+      // Validar campo obrigatório: problema
+      const problemaInput = document.getElementById('p-problema');
+      const problema = problemaInput?.value.trim() || '';
+      if (!problema) {
+        mostrarToast('⚠️ Por favor, informe o maior problema que você vê em Medianeira.', 'error');
+        problemaInput?.focus();
         return;
       }
       
-      if (!lgpd) {
-        const toast = document.getElementById('toast');
-        if (toast) {
-          toast.textContent = '⚠️ Você precisa concordar com a Política de Privacidade e LGPD.';
-          toast.classList.add('show');
-          setTimeout(() => toast.classList.remove('show'), 3000);
-        }
+      // Validar LGPD
+      const lgpdCheck = document.getElementById('p-lgpd');
+      if (!lgpdCheck?.checked) {
+        mostrarToast('⚠️ Você precisa concordar com a Política de Privacidade e LGPD.', 'error');
         return;
       }
       
-      // Preparar dados para envio
+      // Coletar todos os dados do formulário
       const dados = {
         area: areaSelecionada,
-        nome: nome,
-        email: email,
-        bairro: bairro,
+        nome: document.getElementById('p-nome')?.value?.trim() || '',
+        email: document.getElementById('p-email')?.value?.trim() || '',
+        bairro: document.getElementById('p-bairro')?.value?.trim() || '',
         problema: problema,
-        melhoria: melhoria,
-        idade: idade,
-        data: new Date().toISOString()
+        melhoria: document.getElementById('p-melhoria')?.value?.trim() || '',
+        idade: document.getElementById('p-idade')?.value || '',
+        timestamp: new Date().toISOString()
       };
       
-      console.log('Dados enviados:', dados);
+      // Desabilitar botão enquanto envia
+      const btnSubmit = document.querySelector('#formParticipacao button[type="submit"]');
+      const textoOriginal = btnSubmit?.innerHTML;
+      if (btnSubmit) {
+        btnSubmit.disabled = true;
+        btnSubmit.innerHTML = '⏳ Enviando...';
+      }
       
-      // Mostrar mensagem de sucesso
-      const toast = document.getElementById('toast');
-      if (toast) {
-        toast.textContent = '✅ Participação enviada com sucesso! Obrigado por contribuir.';
-        toast.classList.add('show', 'success');
-        setTimeout(() => {
-          toast.classList.remove('show', 'success');
-        }, 3000);
+      // Enviar para o Google Sheets
+      const resultado = await enviarParaGoogleSheets(dados);
+      
+      // Reabilitar botão
+      if (btnSubmit) {
+        btnSubmit.disabled = false;
+        btnSubmit.innerHTML = textoOriginal;
+      }
+      
+      if (resultado.success) {
+        mostrarToast('✅ Participação enviada com sucesso! Obrigado por contribuir.', 'success');
+        
+        // Limpar campos do formulário (mantendo área? vamos limpar área também)
+        if (selectArea) selectArea.value = '';
+        if (selectedAreaDisplay) selectedAreaDisplay.style.display = 'none';
+        if (problemaInput) problemaInput.value = '';
+        const melhoriaInput = document.getElementById('p-melhoria');
+        if (melhoriaInput) melhoriaInput.value = '';
+        const nomeInput = document.getElementById('p-nome');
+        if (nomeInput) nomeInput.value = '';
+        const emailInput = document.getElementById('p-email');
+        if (emailInput) emailInput.value = '';
+        const bairroInput = document.getElementById('p-bairro');
+        if (bairroInput) bairroInput.value = '';
+        const idadeSelect = document.getElementById('p-idade');
+        if (idadeSelect) idadeSelect.value = '';
+        const lgpdCheckbox = document.getElementById('p-lgpd');
+        if (lgpdCheckbox) lgpdCheckbox.checked = false;
+        
+      } else {
+        mostrarToast('❌ Erro ao enviar. Verifique sua conexão e tente novamente.', 'error');
       }
     }
     
@@ -314,7 +403,10 @@
     window.enviarParticipacao = enviarParticipacao;
     
     // Atualizar ano no footer
-    document.querySelector('.ano-footer') && (document.querySelector('.ano-footer').textContent = new Date().getFullYear());
+    const anoFooter = document.querySelector('.ano-footer');
+    if (anoFooter) {
+      anoFooter.textContent = new Date().getFullYear();
+    }
     
     // Menu mobile
     const navToggle = document.querySelector('.nav-toggle');
@@ -327,33 +419,5 @@
       });
     }
   </script>
-  <style>
-    /* Estilos para o toast */
-    #toast {
-      visibility: hidden;
-      min-width: 250px;
-      background-color: #333;
-      color: #fff;
-      text-align: center;
-      border-radius: 8px;
-      padding: 12px;
-      position: fixed;
-      z-index: 1000;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 0.875rem;
-      opacity: 0;
-      transition: opacity 0.3s, visibility 0.3s;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    }
-    #toast.show {
-      visibility: visible;
-      opacity: 1;
-    }
-    #toast.success {
-      background-color: #0f3b2c;
-    }
-  </style>
 </body>
 </html>
