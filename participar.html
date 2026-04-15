@@ -34,10 +34,7 @@
   <link rel="stylesheet" href="assets/style.css">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <style>
-    /* Estilo adicional para o dropdown */
-    .form-row select {
-      cursor: pointer;
-    }
+    .form-row select { cursor: pointer; }
     .selected-area-display {
       background: #f0fdf4;
       border-radius: 0.75rem;
@@ -47,7 +44,6 @@
       border: 1px solid #bbf7d0;
       color: #166534;
     }
-    /* Estilos para o toast */
     #toast {
       visibility: hidden;
       min-width: 280px;
@@ -68,26 +64,11 @@
       box-shadow: 0 10px 25px -5px rgba(0,0,0,0.2);
       pointer-events: none;
     }
-    #toast.show {
-      visibility: visible;
-      opacity: 1;
-    }
-    #toast.success {
-      background-color: #0f3b2c;
-      border-left: 4px solid #4ade80;
-    }
-    #toast.error {
-      background-color: #7f1a1a;
-      border-left: 4px solid #f87171;
-    }
-    .btn-full {
-      width: 100%;
-    }
-    .btn-lg {
-      padding: 1rem 1.5rem;
-      font-size: 1.1rem;
-    }
-    /* Estilo para o aviso do telefone com efeito NEON suave */
+    #toast.show { visibility: visible; opacity: 1; }
+    #toast.success { background-color: #0f3b2c; border-left: 4px solid #4ade80; }
+    #toast.error { background-color: #7f1a1a; border-left: 4px solid #f87171; }
+    .btn-full { width: 100%; }
+    .btn-lg { padding: 1rem 1.5rem; font-size: 1.1rem; }
     .phone-note {
       font-size: 0.75rem;
       margin-top: 0.5rem;
@@ -97,37 +78,15 @@
       padding: 0.5rem 0.75rem;
       border-radius: 0.5rem;
       background: rgba(59, 130, 246, 0.05);
-      
-      /* Efeito NEON suave */
       color: #1e40af;
-      text-shadow: 
-        0 0 3px rgba(59, 130, 246, 0.3),
-        0 0 6px rgba(59, 130, 246, 0.2),
-        0 0 10px rgba(59, 130, 246, 0.1);
+      text-shadow: 0 0 3px rgba(59, 130, 246, 0.3), 0 0 6px rgba(59, 130, 246, 0.2), 0 0 10px rgba(59, 130, 246, 0.1);
       animation: neonPulse 2s ease-in-out infinite;
     }
-    
-    .phone-note::before {
-      content: "📱";
-      font-size: 0.75rem;
-      filter: drop-shadow(0 0 2px #3b82f6);
-    }
-    
+    .phone-note::before { content: "📱"; font-size: 0.75rem; filter: drop-shadow(0 0 2px #3b82f6); }
     @keyframes neonPulse {
-      0%, 100% {
-        text-shadow: 
-          0 0 2px rgba(59, 130, 246, 0.3),
-          0 0 5px rgba(59, 130, 246, 0.2);
-      }
-      50% {
-        text-shadow: 
-          0 0 4px rgba(59, 130, 246, 0.5),
-          0 0 8px rgba(59, 130, 246, 0.35),
-          0 0 12px rgba(59, 130, 246, 0.2);
-      }
+      0%, 100% { text-shadow: 0 0 2px rgba(59, 130, 246, 0.3), 0 0 5px rgba(59, 130, 246, 0.2); }
+      50% { text-shadow: 0 0 4px rgba(59, 130, 246, 0.5), 0 0 8px rgba(59, 130, 246, 0.35), 0 0 12px rgba(59, 130, 246, 0.2); }
     }
-
-    /* Estilos do Modal/Popup de confirmação */
     .modal-confirm {
       display: none;
       position: fixed;
@@ -141,11 +100,7 @@
       align-items: center;
       backdrop-filter: blur(4px);
     }
-    
-    .modal-confirm.show {
-      display: flex;
-    }
-    
+    .modal-confirm.show { display: flex; }
     .modal-content {
       background: white;
       max-width: 500px;
@@ -155,89 +110,22 @@
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
       animation: modalSlideIn 0.3s ease-out;
     }
-    
     @keyframes modalSlideIn {
-      from {
-        opacity: 0;
-        transform: translateY(-30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    
-    .modal-content h3 {
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
-      color: #0f3b2c;
-    }
-    
-    .modal-content .modal-sub {
-      color: #6b7280;
-      margin-bottom: 1.5rem;
-      font-size: 0.875rem;
-    }
-    
-    .data-preview {
-      background: #f9fafb;
-      border-radius: 0.75rem;
-      padding: 1rem;
-      margin-bottom: 1.5rem;
-    }
-    
-    .data-preview p {
-      margin: 0.5rem 0;
-      font-size: 0.875rem;
-      line-height: 1.4;
-      word-break: break-word;
-    }
-    
-    .data-preview strong {
-      color: #1e293b;
-      display: inline-block;
-      min-width: 100px;
-    }
-    
-    .modal-actions {
-      display: flex;
-      gap: 1rem;
-      justify-content: flex-end;
-    }
-    
-    .modal-actions button {
-      padding: 0.625rem 1.25rem;
-      border-radius: 0.5rem;
-      font-weight: 500;
-      cursor: pointer;
-      border: none;
-      transition: all 0.2s;
-    }
-    
-    .btn-modal-cancel {
-      background: #f3f4f6;
-      color: #374151;
-    }
-    
-    .btn-modal-cancel:hover {
-      background: #e5e7eb;
-    }
-    
-    .btn-modal-confirm {
-      background: #0f3b2c;
-      color: white;
-    }
-    
-    .btn-modal-confirm:hover {
-      background: #1a5a42;
-    }
-    
-    .edit-hint {
-      font-size: 0.7rem;
-      text-align: center;
-      margin-top: 1rem;
-      color: #9ca3af;
-    }
+    .modal-content h3 { font-size: 1.5rem; margin-bottom: 0.5rem; color: #0f3b2c; }
+    .modal-content .modal-sub { color: #6b7280; margin-bottom: 1.5rem; font-size: 0.875rem; }
+    .data-preview { background: #f9fafb; border-radius: 0.75rem; padding: 1rem; margin-bottom: 1.5rem; }
+    .data-preview p { margin: 0.5rem 0; font-size: 0.875rem; line-height: 1.4; word-break: break-word; }
+    .data-preview strong { color: #1e293b; display: inline-block; min-width: 100px; }
+    .modal-actions { display: flex; gap: 1rem; justify-content: flex-end; }
+    .modal-actions button { padding: 0.625rem 1.25rem; border-radius: 0.5rem; font-weight: 500; cursor: pointer; border: none; transition: all 0.2s; }
+    .btn-modal-cancel { background: #f3f4f6; color: #374151; }
+    .btn-modal-cancel:hover { background: #e5e7eb; }
+    .btn-modal-confirm { background: #0f3b2c; color: white; }
+    .btn-modal-confirm:hover { background: #1a5a42; }
+    .edit-hint { font-size: 0.7rem; text-align: center; margin-top: 1rem; color: #9ca3af; }
   </style>
 </head>
 <body>
@@ -276,7 +164,6 @@
 
     <section class="section-participar" aria-labelledby="form-titulo">
       <div class="container participar-inner">
-
         <aside class="participar-info">
           <h2 class="sr-only">Como funciona</h2>
           <div class="info-card">
@@ -292,8 +179,6 @@
         <div class="form-wrap">
           <h2 id="form-titulo">Sua participação</h2>
           <form id="formParticipacao" novalidate>
-
-            <!-- DROPDOWN DE ÁREAS -->
             <div class="form-row">
               <label for="p-areas-select">🗳️ Área de interesse <span style="color: #dc2626;">*</span></label>
               <select id="p-areas-select" name="areas" required>
@@ -311,7 +196,6 @@
                 <option value="Ouvidoria Municipal">📣 Ouvidoria Municipal</option>
                 <option value="Desenvolvimento Econômico">📈 Desenvolvimento Econômico</option>
               </select>
-              
               <div class="selected-area-display" id="selectedAreaDisplay" style="display: none;">
                 <strong>📌 Área selecionada:</strong> <span id="areaSelecionadaTexto"></span>
               </div>
@@ -327,7 +211,6 @@
               <input type="email" id="p-email" name="email" autocomplete="email" placeholder="seuemail@gmail.com">
             </div>
 
-            <!-- CAMPO TELEFONE COM MÁSCARA -->
             <div class="form-row">
               <label for="p-telefone">📞 Telefone (opcional)</label>
               <input type="tel" id="p-telefone" name="telefone" autocomplete="tel" placeholder="(99) 9 9999-9999" maxlength="16">
@@ -372,7 +255,6 @@
             <p class="form-note">Participação 100% gratuita e anônima. Seus dados nunca serão vendidos.</p>
           </form>
         </div>
-
       </div>
     </section>
   </main>
@@ -411,16 +293,11 @@
   </footer>
   <div id="toast" role="alert" aria-live="assertive" aria-atomic="true"></div>
 
-  <!-- MODAL DE CONFIRMAÇÃO -->
   <div id="modalConfirm" class="modal-confirm">
     <div class="modal-content">
       <h3>📋 Confirme seus dados</h3>
       <p class="modal-sub">Verifique se as informações estão corretas antes de enviar.</p>
-      
-      <div class="data-preview" id="dataPreview">
-        <!-- Os dados serão inseridos aqui dinamicamente -->
-      </div>
-      
+      <div class="data-preview" id="dataPreview"></div>
       <div class="modal-actions">
         <button class="btn-modal-cancel" id="btnCancelarEnvio">✏️ Corrigir dados</button>
         <button class="btn-modal-confirm" id="btnConfirmarEnvioFinal">✅ Sim, enviar</button>
@@ -430,17 +307,11 @@
   </div>
 
   <script>
-    // ============================================================
-    // MÁSCARA PARA TELEFONE (FORMATO (XX) X XXXX-XXXX)
-    // ============================================================
+    // MÁSCARA PARA TELEFONE
     const telefoneInput = document.getElementById('p-telefone');
-    
     function aplicarMascaraTelefone(e) {
-      let value = e.target.value.replace(/\D/g, ''); // Remove tudo que não é dígito
-      
+      let value = e.target.value.replace(/\D/g, '');
       if (value.length > 11) value = value.slice(0, 11);
-      
-      // Aplica a máscara progressivamente
       if (value.length <= 2) {
         value = value.replace(/^(\d{0,2})/, '($1');
       } else if (value.length <= 6) {
@@ -450,20 +321,12 @@
       } else {
         value = value.replace(/^(\d{2})(\d{1})(\d{4})(\d{0,4})/, '($1) $2 $3-$4');
       }
-      
-      // Remove caracteres especiais extras se houver
       value = value.replace(/[^0-9()\s-]/g, '');
-      
       e.target.value = value;
     }
-    
-    if (telefoneInput) {
-      telefoneInput.addEventListener('input', aplicarMascaraTelefone);
-    }
-    
-    // ============================================================
-    // ELEMENTOS DO DOM
-    // ============================================================
+    if (telefoneInput) telefoneInput.addEventListener('input', aplicarMascaraTelefone);
+
+    // ELEMENTOS
     const selectArea = document.getElementById('p-areas-select');
     const selectedAreaDisplay = document.getElementById('selectedAreaDisplay');
     const areaSelecionadaTexto = document.getElementById('areaSelecionadaTexto');
@@ -473,13 +336,10 @@
     const btnConfirmarEnvioFinal = document.getElementById('btnConfirmarEnvioFinal');
     const dataPreview = document.getElementById('dataPreview');
     
-    // Variável para armazenar os dados temporariamente
     let dadosTemp = null;
     
-    // Atualizar exibição da área selecionada
     function atualizarDisplayArea() {
       const areaSelecionada = selectArea.value;
-      
       if (areaSelecionada && areaSelecionada !== "") {
         areaSelecionadaTexto.innerHTML = areaSelecionada;
         selectedAreaDisplay.style.display = 'block';
@@ -487,12 +347,8 @@
         selectedAreaDisplay.style.display = 'none';
       }
     }
+    if (selectArea) selectArea.addEventListener('change', atualizarDisplayArea);
     
-    if (selectArea) {
-      selectArea.addEventListener('change', atualizarDisplayArea);
-    }
-    
-    // Função para mostrar notificações
     function mostrarToast(mensagem, tipo = 'info') {
       const toast = document.getElementById('toast');
       toast.textContent = mensagem;
@@ -500,12 +356,9 @@
       if (tipo === 'success') toast.classList.add('success');
       if (tipo === 'error') toast.classList.add('error');
       toast.classList.add('show');
-      setTimeout(() => {
-        toast.classList.remove('show', 'success', 'error');
-      }, 4000);
+      setTimeout(() => toast.classList.remove('show', 'success', 'error'), 4000);
     }
     
-    // Função para validar os campos obrigatórios
     function validarFormulario() {
       const areaSelecionada = selectArea.value;
       if (!areaSelecionada || areaSelecionada === "") {
@@ -513,7 +366,6 @@
         selectArea.focus();
         return false;
       }
-      
       const problemaInput = document.getElementById('p-problema');
       const problema = problemaInput?.value.trim() || '';
       if (!problema) {
@@ -521,67 +373,60 @@
         problemaInput?.focus();
         return false;
       }
-      
       const lgpdCheck = document.getElementById('p-lgpd');
       if (!lgpdCheck?.checked) {
         mostrarToast('⚠️ Você precisa concordar com a Política de Privacidade e LGPD.', 'error');
         return false;
       }
-      
       return true;
     }
     
-    // Função para coletar os dados do formulário
     function coletarDadosFormulario() {
       return {
         area: selectArea.value,
-        nome: document.getElementById('p-nome')?.value?.trim() || '(não informado)',
-        email: document.getElementById('p-email')?.value?.trim() || '(não informado)',
-        telefone: document.getElementById('p-telefone')?.value?.trim() || '(não informado)',
-        bairro: document.getElementById('p-bairro')?.value?.trim() || '(não informado)',
+        nome: document.getElementById('p-nome')?.value?.trim() || '',
+        email: document.getElementById('p-email')?.value?.trim() || '',
+        telefone: document.getElementById('p-telefone')?.value?.trim() || '',
+        bairro: document.getElementById('p-bairro')?.value?.trim() || '',
         problema: document.getElementById('p-problema')?.value?.trim() || '',
-        melhoria: document.getElementById('p-melhoria')?.value?.trim() || '(não informado)',
-        idade: document.getElementById('p-idade')?.value || '(não informado)'
+        melhoria: document.getElementById('p-melhoria')?.value?.trim() || '',
+        idade: document.getElementById('p-idade')?.value || ''
       };
     }
     
-    // Função para exibir o preview no modal
     function exibirPreview(dados) {
       dataPreview.innerHTML = `
-        <p><strong>🗳️ Área:</strong> ${dados.area}</p>
-        <p><strong>👤 Nome:</strong> ${dados.nome}</p>
-        <p><strong>📧 Email:</strong> ${dados.email}</p>
-        <p><strong>📞 Telefone:</strong> ${dados.telefone}</p>
-        <p><strong>🏘️ Bairro:</strong> ${dados.bairro}</p>
+        <p><strong>🗳️ Área:</strong> ${dados.area || '(não informado)'}</p>
+        <p><strong>👤 Nome:</strong> ${dados.nome || '(não informado)'}</p>
+        <p><strong>📧 Email:</strong> ${dados.email || '(não informado)'}</p>
+        <p><strong>📞 Telefone:</strong> ${dados.telefone || '(não informado)'}</p>
+        <p><strong>🏘️ Bairro:</strong> ${dados.bairro || '(não informado)'}</p>
         <p><strong>⚠️ Maior problema:</strong> ${dados.problema.substring(0, 100)}${dados.problema.length > 100 ? '...' : ''}</p>
         <p><strong>💡 Sugestão de melhoria:</strong> ${dados.melhoria.substring(0, 100)}${dados.melhoria.length > 100 ? '...' : ''}</p>
-        <p><strong>📊 Faixa etária:</strong> ${dados.idade}</p>
+        <p><strong>📊 Faixa etária:</strong> ${dados.idade || '(não informado)'}</p>
       `;
     }
     
-    // Função para fechar o modal e permitir edição
     function fecharModal() {
       modalConfirm.classList.remove('show');
       dadosTemp = null;
     }
     
-    // Função para abrir o modal com confirmação
     function abrirModalConfirmacao() {
       if (!validarFormulario()) return;
-      
       dadosTemp = coletarDadosFormulario();
       exibirPreview(dadosTemp);
       modalConfirm.classList.add('show');
     }
     
-    // Função para enviar os dados para o Google Sheets
+    // Função CORRIGIDA para enviar para o Google Sheets (sem mode: 'no-cors')
     async function enviarParaGoogleSheets(dados) {
-      const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbysrB_ld5JkhXSLTU6e8soJX-bCNKsnVK6QSGwDgH6wlTVo-ECwG_5e0C_T8hNFb2ln-A/exec';
+      // ⚠️ ATENÇÃO: SUBSTITUA PELA SUA URL DO APPS SCRIPT
+      const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxczRIdUaq3Dq2isNimRhOw1zp1GzQiASVxnqxx9TuJ-bIfCyCsYO9fJ2e_YgcIBRUzlA/exec';
       
       try {
         const response = await fetch(SCRIPT_URL, {
           method: 'POST',
-          mode: 'no-cors',
           headers: {
             'Content-Type': 'application/json',
           },
@@ -591,21 +436,25 @@
           })
         });
         
-        return { success: true };
+        const resultado = await response.json();
+        console.log('Resposta do Google Sheets:', resultado);
+        
+        if (resultado.result === 'success') {
+          return { success: true };
+        } else {
+          return { success: false, erro: 'Erro no servidor' };
+        }
       } catch (erro) {
         console.error('Erro detalhado:', erro);
         return { success: false, erro: erro.message };
       }
     }
     
-    // Função para enviar após confirmação
     async function enviarConfirmado() {
       if (!dadosTemp) return;
       
-      // Fechar o modal
       fecharModal();
       
-      // Desabilitar botão principal
       const btnSubmit = document.getElementById('btnConfirmarEnvio');
       const textoOriginal = btnSubmit?.innerHTML;
       if (btnSubmit) {
@@ -613,10 +462,8 @@
         btnSubmit.innerHTML = '⏳ Enviando...';
       }
       
-      // Enviar para o Google Sheets
       const resultado = await enviarParaGoogleSheets(dadosTemp);
       
-      // Reabilitar botão
       if (btnSubmit) {
         btnSubmit.disabled = false;
         btnSubmit.innerHTML = textoOriginal;
@@ -625,7 +472,6 @@
       if (resultado.success) {
         mostrarToast('✅ Participação enviada com sucesso! Obrigado por contribuir.', 'success');
         
-        // Limpar campos do formulário
         if (selectArea) selectArea.value = '';
         if (selectedAreaDisplay) selectedAreaDisplay.style.display = 'none';
         document.getElementById('p-problema').value = '';
@@ -637,53 +483,31 @@
         document.getElementById('p-idade').value = '';
         const lgpdCheckbox = document.getElementById('p-lgpd');
         if (lgpdCheckbox) lgpdCheckbox.checked = false;
-        
       } else {
-        mostrarToast('❌ Erro ao enviar. Verifique sua conexão e tente novamente.', 'error');
+        mostrarToast('❌ Erro ao enviar: ' + (resultado.erro || 'Tente novamente mais tarde.'), 'error');
       }
-      
       dadosTemp = null;
     }
     
-    // Eventos do modal
-    if (btnConfirmarEnvio) {
-      btnConfirmarEnvio.addEventListener('click', abrirModalConfirmacao);
-    }
+    btnConfirmarEnvio?.addEventListener('click', abrirModalConfirmacao);
+    btnCancelarEnvio?.addEventListener('click', fecharModal);
+    btnConfirmarEnvioFinal?.addEventListener('click', enviarConfirmado);
     
-    if (btnCancelarEnvio) {
-      btnCancelarEnvio.addEventListener('click', fecharModal);
-    }
-    
-    if (btnConfirmarEnvioFinal) {
-      btnConfirmarEnvioFinal.addEventListener('click', enviarConfirmado);
-    }
-    
-    // Fechar modal se clicar fora do conteúdo
     if (modalConfirm) {
       modalConfirm.addEventListener('click', (e) => {
-        if (e.target === modalConfirm) {
-          fecharModal();
-        }
+        if (e.target === modalConfirm) fecharModal();
       });
     }
     
-    // Quando clicar em qualquer campo do formulário, fechar o modal (permitir edição)
     const formCampos = document.querySelectorAll('#formParticipacao input, #formParticipacao select, #formParticipacao textarea');
     formCampos.forEach(campo => {
       campo.addEventListener('focus', () => {
-        if (modalConfirm.classList.contains('show')) {
-          fecharModal();
-        }
+        if (modalConfirm.classList.contains('show')) fecharModal();
       });
     });
     
-    // Atualizar ano no footer
-    const anoFooter = document.querySelector('.ano-footer');
-    if (anoFooter) {
-      anoFooter.textContent = new Date().getFullYear();
-    }
+    document.querySelector('.ano-footer') && (document.querySelector('.ano-footer').textContent = new Date().getFullYear());
     
-    // Menu mobile
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.getElementById('nav-menu');
     if (navToggle && navMenu) {
