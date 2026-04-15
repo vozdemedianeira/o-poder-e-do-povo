@@ -166,15 +166,22 @@
               </div>
             </div>
 
-            <div class="form-row">
-              <label for="p-nome">Nome (opcional)</label>
-              <input type="text" id="p-nome" name="nome" autocomplete="name" placeholder="Como posso te chamar?">
-            </div>
+           <div class="form-row">
+  <label for="p-nome">Nome <span style="color: #dc2626;">*</span></label>
+  <input type="text" id="p-nome" name="nome" autocomplete="name" placeholder="Como posso te chamar?" required>
+</div>
 
             <div class="form-row">
-              <label for="p-email">Email <small>(para receber os resultados)</small></label>
-              <input type="email" id="p-email" name="email" autocomplete="email" placeholder="seuemail@gmail.com">
-            </div>
+  <label for="p-telefone">📱 Telefone (opcional)</label>
+  <input type="tel" id="p-telefone" name="telefone" autocomplete="tel" placeholder="(99) 9 9999-9999" maxlength="16">
+  <small style="display: block; margin-top: 0.5rem; color: #4b5563; font-size: 0.75rem;">📲 receba no seu celular o resultado da pesquisa e outras informações importantes</small>
+</div>
+
+            <div class="form-row">
+  <label for="p-email">Email <span style="color: #dc2626;">*</span> <small>(para receber os resultados)</small></label>
+  <input type="email" id="p-email" name="email" autocomplete="email" inputmode="email" placeholder="seuemail@gmail.com" required>
+  <small style="display: block; margin-top: 0.3rem; color: #6b7280; font-size: 0.7rem;">📧 Digite um email válido. Se estiver no celular, seu email salvo será sugerido.</small>
+</div>
 
             <div class="form-row">
               <label for="p-bairro">Bairro ou região em Medianeira</label>
