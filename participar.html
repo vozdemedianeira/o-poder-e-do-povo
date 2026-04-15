@@ -87,6 +87,45 @@
       padding: 1rem 1.5rem;
       font-size: 1.1rem;
     }
+    /* Estilo para o aviso do telefone com efeito NEON suave */
+    .phone-note {
+      font-size: 0.75rem;
+      margin-top: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.5rem;
+      background: rgba(59, 130, 246, 0.05);
+      
+      /* Efeito NEON suave */
+      color: #1e40af;
+      text-shadow: 
+        0 0 3px rgba(59, 130, 246, 0.3),
+        0 0 6px rgba(59, 130, 246, 0.2),
+        0 0 10px rgba(59, 130, 246, 0.1);
+      animation: neonPulse 2s ease-in-out infinite;
+    }
+    
+    .phone-note::before {
+      content: "📱";
+      font-size: 0.75rem;
+      filter: drop-shadow(0 0 2px #3b82f6);
+    }
+    
+    @keyframes neonPulse {
+      0%, 100% {
+        text-shadow: 
+          0 0 2px rgba(59, 130, 246, 0.3),
+          0 0 5px rgba(59, 130, 246, 0.2);
+      }
+      50% {
+        text-shadow: 
+          0 0 4px rgba(59, 130, 246, 0.5),
+          0 0 8px rgba(59, 130, 246, 0.35),
+          0 0 12px rgba(59, 130, 246, 0.2);
+      }
+    }
   </style>
 </head>
 <body>
@@ -174,6 +213,13 @@
             <div class="form-row">
               <label for="p-email">Email <small>(para receber os resultados)</small></label>
               <input type="email" id="p-email" name="email" autocomplete="email" placeholder="seuemail@gmail.com">
+            </div>
+
+            <!-- CAMPO TELEFONE COM AVISO NEON -->
+            <div class="form-row">
+              <label for="p-telefone">📞 Telefone (opcional)</label>
+              <input type="tel" id="p-telefone" name="telefone" autocomplete="tel" placeholder="(99) 99999-9999">
+              <div class="phone-note">Ao informar seu telefone, você poderá acompanhar o progresso da votação e receber atualizações da pesquisa.</div>
             </div>
 
             <div class="form-row">
@@ -298,7 +344,6 @@
     // Função principal de envio para o Google Sheets
     async function enviarParaGoogleSheets(dados) {
       try {
-        // Usando fetch com mode no-cors para evitar problemas de CORS
         const response = await fetch(SCRIPT_URL, {
           method: 'POST',
           mode: 'no-cors',
@@ -308,8 +353,6 @@
           body: JSON.stringify(dados)
         });
         
-        // Com 'no-cors', não conseguimos ler a resposta diretamente
-        // Consideramos como sucesso se não houve erro de rede
         return { success: true };
       } catch (erro) {
         console.error('Erro detalhado:', erro);
@@ -317,11 +360,10 @@
       }
     }
     
-    // Função de envio do formulário (chamada pelo onsubmit)
+    // Função de envio do formulário
     async function enviarParticipacao(event) {
       event.preventDefault();
       
-      // Validar área selecionada
       const areaSelecionada = selectArea.value;
       if (!areaSelecionada || areaSelecionada === "") {
         mostrarToast('⚠️ Selecione uma área de interesse antes de enviar.', 'error');
@@ -329,7 +371,6 @@
         return;
       }
       
-      // Validar campo obrigatório: problema
       const problemaInput = document.getElementById('p-problema');
       const problema = problemaInput?.value.trim() || '';
       if (!problema) {
@@ -338,18 +379,17 @@
         return;
       }
       
-      // Validar LGPD
       const lgpdCheck = document.getElementById('p-lgpd');
       if (!lgpdCheck?.checked) {
         mostrarToast('⚠️ Você precisa concordar com a Política de Privacidade e LGPD.', 'error');
         return;
       }
       
-      // Coletar todos os dados do formulário
       const dados = {
         area: areaSelecionada,
         nome: document.getElementById('p-nome')?.value?.trim() || '',
         email: document.getElementById('p-email')?.value?.trim() || '',
+        telefone: document.getElementById('p-telefone')?.value?.trim() || '',
         bairro: document.getElementById('p-bairro')?.value?.trim() || '',
         problema: problema,
         melhoria: document.getElementById('p-melhoria')?.value?.trim() || '',
@@ -357,7 +397,6 @@
         timestamp: new Date().toISOString()
       };
       
-      // Desabilitar botão enquanto envia
       const btnSubmit = document.querySelector('#formParticipacao button[type="submit"]');
       const textoOriginal = btnSubmit?.innerHTML;
       if (btnSubmit) {
@@ -365,10 +404,8 @@
         btnSubmit.innerHTML = '⏳ Enviando...';
       }
       
-      // Enviar para o Google Sheets
       const resultado = await enviarParaGoogleSheets(dados);
       
-      // Reabilitar botão
       if (btnSubmit) {
         btnSubmit.disabled = false;
         btnSubmit.innerHTML = textoOriginal;
@@ -377,7 +414,6 @@
       if (resultado.success) {
         mostrarToast('✅ Participação enviada com sucesso! Obrigado por contribuir.', 'success');
         
-        // Limpar campos do formulário (mantendo área? vamos limpar área também)
         if (selectArea) selectArea.value = '';
         if (selectedAreaDisplay) selectedAreaDisplay.style.display = 'none';
         if (problemaInput) problemaInput.value = '';
@@ -387,6 +423,8 @@
         if (nomeInput) nomeInput.value = '';
         const emailInput = document.getElementById('p-email');
         if (emailInput) emailInput.value = '';
+        const telefoneInput = document.getElementById('p-telefone');
+        if (telefoneInput) telefoneInput.value = '';
         const bairroInput = document.getElementById('p-bairro');
         if (bairroInput) bairroInput.value = '';
         const idadeSelect = document.getElementById('p-idade');
@@ -399,16 +437,13 @@
       }
     }
     
-    // Tornar função global para o onsubmit
     window.enviarParticipacao = enviarParticipacao;
     
-    // Atualizar ano no footer
     const anoFooter = document.querySelector('.ano-footer');
     if (anoFooter) {
       anoFooter.textContent = new Date().getFullYear();
     }
     
-    // Menu mobile
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.getElementById('nav-menu');
     if (navToggle && navMenu) {
